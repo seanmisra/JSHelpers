@@ -11,7 +11,7 @@ INCLUDE jQUERY BEFORE THIS FILE IN <HEAD>
 
 // clicking an element will initiate scroll to top of page
 // style: if false, will not reformat CSS cursor
-function scrollToTop (element, speed, style) {
+function scrollToTop(element, speed, style) {
     if (style != false)
         $(element).css("cursor", "pointer");
     $(element).on("click", function() {
@@ -23,7 +23,7 @@ function scrollToTop (element, speed, style) {
 // clicking on start element will initiate scroll to destination element
 // offset: +/- to move destination position down/up
 // style: if false, will not reformat CSS cursor
-function scrollTo (start, destination, speed, offset, style) {
+function scrollTo(start, destination, speed, offset, style) {
     var end = $(destination);
     var position = 0;
     if (offset)
@@ -38,7 +38,7 @@ function scrollTo (start, destination, speed, offset, style) {
 
 // fade in an element (e.g on page load)
 // opacity: 0 to 1
-function appear (element, speed, opacity) {
+function appear(element, speed, opacity) {
     var finalOpacity = 1;
     if (opacity)
         finalOpacity = opacity; 
@@ -57,16 +57,16 @@ function timedAppear(element, speed, opacity, time) {
     }, time);
 }
 
+
 // fade in an element (e.g on page load) ONLY when you scroll to it
+// works well with imgs
 // opacity: 0 to 1
 function lazyAppear(element, speed, opacity) {
     $(element).css('opacity', '0');
     $(window).scroll(function() {
-        var elemOffset = $(element).offset().top;
-        var elemHeight = $(element).outerHeight();
-        var windowScroll = $(this).scrollTop();
-        var windowHeight = $(this).height();
-        if (windowScroll + windowHeight > elemOffset + elemHeight){
+        var elemOffset = $(element).offset().top + $(element).outerHeight();
+        var windowOffset = $(this).scrollTop() + $(this).height(); 
+        if (windowOffset > elemOffset){
             appear(element, speed, opacity);
             return;
         }
@@ -82,7 +82,7 @@ function lazyAppear(element, speed, opacity) {
 // arriveSpeed: the time it takes for the element to reappear (default .4 sec) 
 // arriveOpacity: the opacity which the element reappears at (default: 1)
 // **if arriveTime is not provided the element will not reappear**
-function dissapear (element, exitTime, exitSpeed, arriveTime, arriveSpeed, arriveOpacity) {
+function dissapear(element, exitTime, exitSpeed, arriveTime, arriveSpeed, arriveOpacity) {
     var leaveTime = 5000; 
     var leaveSpeed = "normal"; 
     if(exitTime)
@@ -108,12 +108,39 @@ function dissapear (element, exitTime, exitSpeed, arriveTime, arriveSpeed, arriv
 }
 
 
+// fade out header as you scroll down
+// fade in header as you scroll up
+function ghostHeader(element) {
+    $(window).scroll(function(){  
+        var scrollDistance = $(this).scrollTop(); 
+        var bottomOfElement = $(element).offset().top + $(element).outerHeight(); 
+
+        var opacity = 1 - (scrollDistance/(bottomOfElement)) 
+        $(element).css("opacity", opacity);
+    });
+}
+
+
+// fade out footer as you scroll up
+// fade in footer as you scroll down
+function ghostFooter(element) {
+    $(window).scroll(function(){  
+        var scrollDistance = $(this).height() + $(this).scrollTop(); 
+        var startOfElement = $(element).offset().top; 
+        var bottomOfElement = $(element).offset().top + $(element).outerHeight(); 
+        var opacity = (scrollDistance - startOfElement)/(bottomOfElement - startOfElement);
+
+        $(element).css("opacity", opacity);
+    });
+}
+
+
 // change the CSS property of an element on hover
 // cssProperty: a string with a CSS property 
 // cssValueOne: a string with a CSS value (will show on mouseenter)
 // cssValueTwo: a string with a CSS value (will show on mouseleave)
 // transition: "slow", "normal", "fast", 1000, 2000, etc.
-function cssHover (element, cssProperty, cssValueOne, cssValueTwo, transition) {
+function cssHover(element, cssProperty, cssValueOne, cssValueTwo, transition) {
     if (transition) {
         if (transition == "fast") {
             transition = 200; 
@@ -133,7 +160,6 @@ function cssHover (element, cssProperty, cssValueOne, cssValueTwo, transition) {
 
         });
     }
-    
     $(element).hover(
         function() {
             $(this).css(cssProperty, cssValueOne); 
