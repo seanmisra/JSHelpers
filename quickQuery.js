@@ -45,6 +45,25 @@ function appear (element, speed, opacity) {
 }
 
 
+// fade in an element (e.g on page load) ONLY when you scroll to it
+// element: HTML elements (e.g. "#myId" or "h1")
+// speed: "slow", "normal", "fast", 1000, 2000, etc.
+// opacity: 0 to 1
+function lazyAppear(element, speed, opacity) {
+    $(element).css('opacity', '0');
+    $(window).scroll(function() {
+        var elemOffset = $(element).offset().top;
+        var elemHeight = $(element).outerHeight();
+        var windowScroll = $(this).scrollTop();
+        var windowHeight = $(this).height();
+        if (windowScroll + windowHeight > elemOffset + elemHeight){
+            appear(element, speed, opacity);
+            return;
+        }
+    });
+}
+
+
 // fade out element after a certain time
 // there is the option to have it reappear, also after a certain time
 // element: HTML elements (e.g. "#myId" or "h1")
@@ -79,6 +98,41 @@ function dissapear (element, exitTime, exitSpeed, arriveTime, arriveSpeed, arriv
     }, leaveTime);
 }
 
+
+// element: HTML elements (e.g. "#myId" or "h1")
+// cssProperty: a string with a CSS property 
+// cssValueOne: a string with a CSS value (will show on mouseenter)
+// cssValueTwo: a string with a CSS value (will show on mouseleave)
+// transition: "slow", "normal", "fast", 1000, 2000, etc.
+function cssHover (element, cssProperty, cssValueOne, cssValueTwo, transition) {
+    if (transition) {
+        if (transition == "fast") {
+            transition = 200; 
+        }
+        else if (transition == "normal") {
+            transition = 400; 
+        }
+        else if (transition == "slow") {
+            transition = 600; 
+        }
+        $(element).css({
+            transition : cssProperty + ' ' + transition + "ms " + "ease-in-out",
+            WebkitTransition : cssProperty + ' ' + transition + "ms " + "ease-in-out",
+            MozTransition :  cssProperty + ' ' + transition + "ms " + "ease-in-out",
+            MsTransition : cssProperty + ' ' + transition + "ms " + "ease-in-out",
+            OTransition : cssProperty + ' ' + transition + "ms " + "ease-in-out",
+
+        });
+    }
+    
+    $(element).hover(
+        function() {
+            $(this).css(cssProperty, cssValueOne); 
+        }, function() {
+            $(this).css(cssProperty, cssValueTwo);
+        }
+    );
+} 
 
 
 
