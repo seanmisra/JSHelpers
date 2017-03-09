@@ -4,9 +4,9 @@ INCLUDE jQUERY BEFORE THIS FILE IN <HEAD>*/
 // Clicking on handle will scroll to top of webpage
 // handle: an HTML element (e.g. "#myId" or "h1")
 // speed: "slow", "normal", "fast", 1000, 2000, etc.
-// pointer: if false, will not reformat CSS cursor
-function scrollToTop (handle, speed, pointer) {
-    if (pointer != false)
+// style: if false, will not reformat CSS cursor
+function scrollToTop (handle, speed, style) {
+    if (style != false)
         $(handle).css("cursor", "pointer");
     $(handle).on("click", function() {
         $("html, body").animate({scrollTop: 0}, speed);
@@ -18,15 +18,67 @@ function scrollToTop (handle, speed, pointer) {
 // start/destination: HTML elements (e.g. "#myId" or "h1")
 // speed: "slow", "normal", "fast", 1000, 2000, etc.
 // offset: +/- to move position down/up
-// pointer: if false, will not reformat CSS cursor
-function scrollTo (start, destination, speed, offset, pointer) {
+// style: if false, will not reformat CSS cursor
+function scrollTo (start, destination, speed, offset, style) {
     var end = $(destination);
     var position = 0;
     if (offset)
         position = offset;
-    if (pointer != false)
+    if (style != false)
         $(start).css("cursor", "pointer");
     $(start).on("click", function() {
         $("html, body").animate({scrollTop: end.offset().top + position}, speed);
     });
 };
+
+
+// fade in an element (e.g on page load)
+// element: HTML elements (e.g. "#myId" or "h1")
+// speed: "slow", "normal", "fast", 1000, 2000, etc.
+// opacity: 0 to 1
+function appear (element, speed, opacity) {
+    var finalOpacity = 1;
+    if (opacity)
+        finalOpacity = opacity; 
+    $(element).css('opacity', '0');
+    $(element).fadeTo(speed, finalOpacity); 
+}
+
+
+// fade out element after a certain time
+// there is the option to have it reappear, also after a certain time
+// element: HTML elements (e.g. "#myId" or "h1")
+// exitTime: the time after which the element should dissapear (default: 5 sec) 
+// exitSpeed: the time it takes for the element to dissapear (default .4 sec)
+// arriveTime: the time after which the element should reappear
+// arriveSpeed: the time it takes for the element to reappear (default .4 sec) 
+// arriveOpacity: the opacity which the element reappears at (default: 1)
+// **if arriveTime is not provided the element will not reappear**
+function dissapear (element, exitTime, exitSpeed, arriveTime, arriveSpeed, arriveOpacity) {
+    var leaveTime = 5000; 
+    var leaveSpeed = "normal"; 
+    if(exitTime)
+        leaveTime = exitTime;
+    if(exitSpeed)
+        leaveSpeed = exitSpeed; 
+        
+    setTimeout(function() {   
+        $(element).fadeTo(exitTime, 0);
+        if(arriveTime) {
+            var enterSpeed = "normal";
+            var enterOpacity = 1; 
+            var enterTime = arriveTime; 
+            if (arriveSpeed)
+                enterSpeed = arriveSpeed; 
+            if (arriveOpacity)
+                enterOpacity = arriveOpacity; 
+            setTimeout(function() {   
+                $(element).fadeTo(enterSpeed, enterOpacity); 
+            }, enterTime);
+        }
+    }, leaveTime);
+}
+
+
+
+
