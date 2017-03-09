@@ -1,23 +1,27 @@
-/*REQUIRE jQUERY
-INCLUDE jQUERY BEFORE THIS FILE IN <HEAD>*/
+/*
 
-// Clicking on handle will scroll to top of webpage
-// handle: an HTML element (e.g. "#myId" or "h1")
-// speed: "slow", "normal", "fast", 1000, 2000, etc.
+REQUIRES jQUERY
+INCLUDE jQUERY BEFORE THIS FILE IN <HEAD>
+
+"element" parameter: an HTML element (e.g. "#myId" or "h1")
+"speed" parameter: "slow", "normal", "fast", 1000, 2000, etc. (in milliseconds)
+
+*/
+
+
+// clicking an element will initiate scroll to top of page
 // style: if false, will not reformat CSS cursor
-function scrollToTop (handle, speed, style) {
+function scrollToTop (element, speed, style) {
     if (style != false)
-        $(handle).css("cursor", "pointer");
-    $(handle).on("click", function() {
+        $(element).css("cursor", "pointer");
+    $(element).on("click", function() {
         $("html, body").animate({scrollTop: 0}, speed);
     });
 };
 
 
-// clicking on handle will scroll to a defined element
-// start/destination: HTML elements (e.g. "#myId" or "h1")
-// speed: "slow", "normal", "fast", 1000, 2000, etc.
-// offset: +/- to move position down/up
+// clicking on start element will initiate scroll to destination element
+// offset: +/- to move destination position down/up
 // style: if false, will not reformat CSS cursor
 function scrollTo (start, destination, speed, offset, style) {
     var end = $(destination);
@@ -33,8 +37,6 @@ function scrollTo (start, destination, speed, offset, style) {
 
 
 // fade in an element (e.g on page load)
-// element: HTML elements (e.g. "#myId" or "h1")
-// speed: "slow", "normal", "fast", 1000, 2000, etc.
 // opacity: 0 to 1
 function appear (element, speed, opacity) {
     var finalOpacity = 1;
@@ -46,8 +48,6 @@ function appear (element, speed, opacity) {
 
 
 // fade in an element (e.g on page load) ONLY when you scroll to it
-// element: HTML elements (e.g. "#myId" or "h1")
-// speed: "slow", "normal", "fast", 1000, 2000, etc.
 // opacity: 0 to 1
 function lazyAppear(element, speed, opacity) {
     $(element).css('opacity', '0');
@@ -66,7 +66,6 @@ function lazyAppear(element, speed, opacity) {
 
 // fade out element after a certain time
 // there is the option to have it reappear, also after a certain time
-// element: HTML elements (e.g. "#myId" or "h1")
 // exitTime: the time after which the element should dissapear (default: 5 sec) 
 // exitSpeed: the time it takes for the element to dissapear (default .4 sec)
 // arriveTime: the time after which the element should reappear
@@ -99,7 +98,7 @@ function dissapear (element, exitTime, exitSpeed, arriveTime, arriveSpeed, arriv
 }
 
 
-// element: HTML elements (e.g. "#myId" or "h1")
+// change the CSS property of an element on hover
 // cssProperty: a string with a CSS property 
 // cssValueOne: a string with a CSS value (will show on mouseenter)
 // cssValueTwo: a string with a CSS value (will show on mouseleave)
@@ -132,7 +131,4 @@ function cssHover (element, cssProperty, cssValueOne, cssValueTwo, transition) {
             $(this).css(cssProperty, cssValueTwo);
         }
     );
-} 
-
-
-
+}
