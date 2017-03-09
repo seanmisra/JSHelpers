@@ -47,6 +47,16 @@ function appear (element, speed, opacity) {
 }
 
 
+// fade in an element (e.g on page load) after a certain period of time
+// opacity: 0 to 1
+// time: in milliseconds
+function timedAppear(element, speed, opacity, time) {
+    $(element).css('opacity', '0');
+    setTimeout(function() {   
+        appear(element, speed, opacity);
+    }, time);
+}
+
 // fade in an element (e.g on page load) ONLY when you scroll to it
 // opacity: 0 to 1
 function lazyAppear(element, speed, opacity) {
