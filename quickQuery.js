@@ -91,7 +91,7 @@ function dissapear(element, exitTime, exitSpeed, arriveTime, arriveSpeed, arrive
         leaveSpeed = exitSpeed; 
         
     setTimeout(function() {   
-        $(element).fadeTo(exitTime, 0);
+        $(element).fadeTo(leaveSpeed, 0);
         if(arriveTime) {
             var enterSpeed = "normal";
             var enterOpacity = 1; 
