@@ -6,7 +6,13 @@
   <li> Hover effects </li>
   <li> Element elegance </li>
 </ul>
+<br>
 
+<h3> Quickly add to project </h3>
+```javascript
+<script src="quickQuery.min.js"></script>
+```
+<br>
 <h3>To update min file with gulp</h3> 
 <ol> 
     <li> Install dependencies: <i> npm install </i> </li> 
