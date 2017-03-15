@@ -139,47 +139,13 @@ function ghostFooter(element) {
 }
 
 
-// change the CSS property of an element on hover
+// change the CSS property of elementTwo by hovering over elementOne
+// elementOne and elementTwo can be the same
 // cssProperty: a string with a CSS property 
 // cssValueOne: a string with a CSS value (will show on mouseenter)
 // cssValueTwo: a string with a CSS value (will show on mouseleave)
 // transition: "slow", "normal", "fast", 1000, 2000, etc.
-function cssHover(element, cssProperty, cssValueOne, cssValueTwo, transition) {
-    if (transition) {
-        if (transition == "fast") {
-            transition = 200; 
-        }
-        else if (transition == "normal") {
-            transition = 400; 
-        }
-        else if (transition == "slow") {
-            transition = 600; 
-        }
-        $(element).css({
-            transition : cssProperty + ' ' + transition + "ms " + "ease-in-out",
-            WebkitTransition : cssProperty + ' ' + transition + "ms " + "ease-in-out",
-            MozTransition :  cssProperty + ' ' + transition + "ms " + "ease-in-out",
-            MsTransition : cssProperty + ' ' + transition + "ms " + "ease-in-out",
-            OTransition : cssProperty + ' ' + transition + "ms " + "ease-in-out",
-
-        });
-    }
-    $(element).hover(
-        function() {
-            $(this).css(cssProperty, cssValueOne); 
-        }, function() {
-            $(this).css(cssProperty, cssValueTwo);
-        }
-    );
-}
-
-
-// change the CSS property of one element by hovering over another elment
-// cssProperty: a string with a CSS property 
-// cssValueOne: a string with a CSS value (will show on mouseenter)
-// cssValueTwo: a string with a CSS value (will show on mouseleave)
-// transition: "slow", "normal", "fast", 1000, 2000, etc.
-function cssHoverTwin(elementOne, elementTwo, cssProperty, cssValueOne, cssValueTwo, transition) {
+function cssHover(elementOne, elementTwo, cssProperty, cssValueOne, cssValueTwo, transition) {
     if (transition) {
         if (transition == "fast") {
             transition = 200; 
