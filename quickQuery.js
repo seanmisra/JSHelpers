@@ -62,14 +62,18 @@ function timedAppear(element, speed, opacity, time) {
 // works well with imgs
 // opacity: 0 to 1
 function lazyAppear(element, speed, opacity) {
+    var appearFlag = 0; 
     $(element).css('opacity', '0');
     $(window).scroll(function() {
-        var elemOffset = $(element).offset().top + $(element).outerHeight();
-        var windowOffset = $(this).scrollTop() + $(this).height(); 
-        if (windowOffset > elemOffset){
-            appear(element, speed, opacity);
-            return;
+        if (appearFlag == 0) {
+            var elemOffset = $(element).offset().top + $(element).outerHeight();
+            var windowOffset = $(this).scrollTop() + $(this).height(); 
+            if (windowOffset > elemOffset){            
+                appear(element, speed, opacity);
+                appearFlag = 1; 
+            }
         }
+        return false;
     });
 }
 
@@ -167,4 +171,40 @@ function cssHover(element, cssProperty, cssValueOne, cssValueTwo, transition) {
             $(this).css(cssProperty, cssValueTwo);
         }
     );
+}
+
+
+// change the CSS property of one element by hovering over another elment
+// cssProperty: a string with a CSS property 
+// cssValueOne: a string with a CSS value (will show on mouseenter)
+// cssValueTwo: a string with a CSS value (will show on mouseleave)
+// transition: "slow", "normal", "fast", 1000, 2000, etc.
+function cssHoverTwin(elementOne, elementTwo, cssProperty, cssValueOne, cssValueTwo, transition) {
+    if (transition) {
+        if (transition == "fast") {
+            transition = 200; 
+        }
+        else if (transition == "normal") {
+            transition = 400; 
+        }
+        else if (transition == "slow") {
+            transition = 600; 
+        }
+        $(elementTwo).css({
+            transition : cssProperty + ' ' + transition + "ms " + "ease-in-out",
+            WebkitTransition : cssProperty + ' ' + transition + "ms " + "ease-in-out",
+            MozTransition :  cssProperty + ' ' + transition + "ms " + "ease-in-out",
+            MsTransition : cssProperty + ' ' + transition + "ms " + "ease-in-out",
+            OTransition : cssProperty + ' ' + transition + "ms " + "ease-in-out",
+
+        });
+    }
+    $(elementOne).hover(
+        function() {
+            $(elementTwo).css(cssProperty, cssValueOne); 
+        }, function() {
+            $(elementTwo).css(cssProperty, cssValueTwo);
+        }
+    );
+    
 }
