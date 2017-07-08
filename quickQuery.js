@@ -195,3 +195,29 @@ function backgroundImg(path) {
         $('body').css({'background': 'url(' + path + ')' + 'no-repeat 50% 50% fixed', 'background-size': 'cover'}); 
     }; 
 }
+
+
+// give element shadow on hover
+// transition: time to display/fade shadow (optional)
+// depth: strength of shadow (optional)
+// color: shade of shadow (optional) 
+function hoverShadow(elem, transition, depth, color) {
+    shadowOne = shadowTwo = 10; 
+    shadowThree = 5;
+    shadowColor = '#888'; 
+    shadowTransition = 500; 
+    
+    if (depth) {
+        shadowOne *= depth; 
+        shadowTwo *= depth; 
+        shadowThree *= depth; 
+    } 
+    if (color)
+        shadowColor = color; 
+    if (transition)
+        shadowTransition = transition; 
+        
+    shadowString = shadowOne + 'px ' + shadowTwo + 'px ' + shadowThree + 'px ';  
+    cssHover(elem, elem, 'box-shadow', shadowString + ' ' + shadowColor, '', shadowTransition); 
+}
+                  
