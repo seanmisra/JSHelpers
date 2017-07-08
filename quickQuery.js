@@ -145,6 +145,7 @@ function ghostFooter(element) {
 // cssValueOne: a string with a CSS value (will show on mouseenter)
 // cssValueTwo: a string with a CSS value (will show on mouseleave)
 // transition: "slow", "normal", "fast", 1000, 2000, etc.
+// EXAMPLE: cssHover("#firstElem", "#secondElem", "color", "blue", "black", 1000); 
 function cssHover(elementOne, elementTwo, cssProperty, cssValueOne, cssValueTwo, transition) {
     if (transition) {
         if (transition == "fast") {
@@ -173,4 +174,24 @@ function cssHover(elementOne, elementTwo, cssProperty, cssValueOne, cssValueTwo,
         }
     );
     
+}
+
+
+// returns true if mobile device
+function isMobile() {
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
+        return true; 
+    else
+        return false; 
+}
+
+
+// load an image as a full-screen background image (w/o choppiness)
+// path: path of image
+function backgroundImg(path) {
+    var img = new Image(); 
+    img.src = path; 
+    img.onload = function() {
+        $('body').css({'background': 'url(' + path + ')' + 'no-repeat 50% 50% fixed', 'background-size': 'cover'}); 
+    }; 
 }
