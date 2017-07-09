@@ -214,10 +214,48 @@ function hoverShadow(elem, transition, depth, color) {
     } 
     if (color)
         shadowColor = color; 
-    if (transition)
+    if (transition || transition == 0)
         shadowTransition = transition; 
         
     shadowString = shadowOne + 'px ' + shadowTwo + 'px ' + shadowThree + 'px ';  
     cssHover(elem, elem, 'box-shadow', shadowString + ' ' + shadowColor, '', shadowTransition); 
 }
-                  
+
+
+// change element opacity on hover
+// valueOne: opacity on mouseIn: 0 - 1 (optional)
+// valueTwo: opacity on mouseOut: 0 - 1 (optional)
+// transition: time to change (optional)
+function hoverOpacity(elem, valueOne, valueTwo, transition){
+    mouseIn = 1; 
+    mouseOut = .7;
+    opacTransition = 0; 
+    
+    if (valueOne) 
+        mouseIn = valueOne; 
+    if (valueTwo) 
+        mouseOut = valueTwo; 
+    if (transition || transition == 0)
+        opacTransition = transition; 
+    
+    cssHover(elem, elem, 'opacity', mouseOut, mouseIn, opacTransition);    
+} 
+
+
+// zoom element on hover
+// scale (optional)
+// transition: time to change (optional)
+function hoverScale(elem, scale, transition) {
+    scaleSize = 1.2; 
+    scaleTransition = 500; 
+    
+    if (scale)
+        scaleSize = scale; 
+    if(transition || transition == 0)
+        scaleTransition = transition; 
+    
+    cssArgOne = 'scale('+scaleSize+')'; 
+    cssArgTwo = 'scale(1)'; 
+    
+    cssHover(elem, elem, 'transform', cssArgOne, cssArgTwo, scaleTransition); 
+}
