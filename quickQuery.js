@@ -78,40 +78,6 @@ function lazyAppear(element, speed, opacity) {
 }
 
 
-// fade out element after a certain time
-// there is the option to have it reappear, also after a certain time
-// exitTime: the time after which the element should dissapear (default: 5 sec) 
-// exitSpeed: the time it takes for the element to dissapear (default .4 sec)
-// arriveTime: the time after which the element should reappear
-// arriveSpeed: the time it takes for the element to reappear (default .4 sec) 
-// arriveOpacity: the opacity which the element reappears at (default: 1)
-// **if arriveTime is not provided the element will not reappear**
-function dissapear(element, exitTime, exitSpeed, arriveTime, arriveSpeed, arriveOpacity) {
-    var leaveTime = 5000; 
-    var leaveSpeed = "normal"; 
-    if(exitTime)
-        leaveTime = exitTime;
-    if(exitSpeed)
-        leaveSpeed = exitSpeed; 
-        
-    setTimeout(function() {   
-        $(element).fadeTo(leaveSpeed, 0);
-        if(arriveTime) {
-            var enterSpeed = "normal";
-            var enterOpacity = 1; 
-            var enterTime = arriveTime; 
-            if (arriveSpeed)
-                enterSpeed = arriveSpeed; 
-            if (arriveOpacity)
-                enterOpacity = arriveOpacity; 
-            setTimeout(function() {   
-                $(element).fadeTo(enterSpeed, enterOpacity); 
-            }, enterTime);
-        }
-    }, leaveTime);
-}
-
-
 // fade out header as you scroll down
 // fade in header as you scroll up
 function ghostHeader(element) {
@@ -243,7 +209,7 @@ function hoverOpacity(elem, valueOne, valueTwo, transition){
 
 
 // zoom element on hover
-// scale (optional)
+// scale: magnitude of zoom (optional)
 // transition: time to change (optional)
 function hoverScale(elem, scale, transition) {
     scaleSize = 1.2; 
@@ -258,4 +224,22 @@ function hoverScale(elem, scale, transition) {
     cssArgTwo = 'scale(1)'; 
     
     cssHover(elem, elem, 'transform', cssArgOne, cssArgTwo, scaleTransition); 
+}
+
+
+// cycle text of element
+// textArray: list of strings to cycle
+// time: cycle time (optional)
+function cycleText(elem, textArray, time) {
+    var cycleTime = 1000; 
+    if (time)
+        cycleTime = time; 
+    
+    var index = -1;
+    var interval = setInterval(function() {
+        index++; 
+        if (index >= textArray.length)
+            index = 0; 
+        $(elem).html(textArray[index]); 
+    }, cycleTime); 
 }
