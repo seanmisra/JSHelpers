@@ -232,7 +232,7 @@ function hoverScale(elem, scale, transition) {
 // time: cycle time (optional)
 function cycleText(elem, textArray, time) {
     var cycleTime = 1000; 
-    if (time)
+    if (time || time == 0)
         cycleTime = time; 
     
     var index = -1;
@@ -241,5 +241,38 @@ function cycleText(elem, textArray, time) {
         if (index >= textArray.length)
             index = 0; 
         $(elem).html(textArray[index]); 
+    }, cycleTime); 
+}
+
+
+// cycle background image of element
+// picArray: list of image urls to cycle
+// time: cycle time (optional)
+// fade: fade time (optional)
+function cyclePic(elem, picArray, time, fade) {
+    var cycleTime = 5000; 
+    var fadeTime = 1000; 
+    if (time || time == 0)
+        cycleTime = time; 
+    if (fade || fade == 0)
+        fadeTime = fade; 
+    
+    var picProperties = [];
+    picArray.forEach(function(path) {
+        property = 'url(' + path + ')' + 'no-repeat 50% 50%';         
+        picProperties.push(property);   
+    }); 
+    
+    var index = -1; 
+    var interval = setInterval(function() {
+        index++; 
+        if (index >= picArray.length)
+            index = 0; 
+        
+        $(elem).fadeOut(fadeTime, function() {
+            $(this).css('background', picProperties[index]); 
+        });  
+        $(elem).fadeIn(fadeTime); 
+        
     }, cycleTime); 
 }
